@@ -1,0 +1,1 @@
+export { CreateTigerInput } from './CreateTigerInput'

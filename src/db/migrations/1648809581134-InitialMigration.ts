@@ -13,7 +13,8 @@ export class InitialMigration1648809581134 implements MigrationInterface {
     await queryRunner.query(`CREATE TABLE tiger_sightings  (
 	    id serial PRIMARY KEY,
 	    location point NOT NULL,
-	    image_url VARCHAR ( 255 ) NOT NULL,
+	    image_url VARCHAR ( 255 ),
+      last_seen_at DATE NOT NULL,
 	    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	    updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
       tiger_id serial NOT NULL

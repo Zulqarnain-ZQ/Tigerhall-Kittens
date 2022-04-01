@@ -8,9 +8,10 @@ import {
   JoinColumn,
 } from 'typeorm'
 import { Geometry } from 'geojson'
-import { PointObject } from 'graphql-geojson'
+//import { PointObject } from 'graphql-geojson'
 
 import { Tiger } from './Tiger'
+//import { PointType } from '../../graphql/inputs/PointType'
 
 @ObjectType()
 @Entity('tiger_sightings')
@@ -19,13 +20,18 @@ export class TigerSighting {
   @PrimaryGeneratedColumn()
   public readonly id!: number
 
-  @Field((_type) => PointObject)
+  /** TODO: Fix type issue for location */
+  // @Field((_type) => PointType)
   @Column({ type: 'point' })
   public location!: Geometry
 
   @Field()
-  @Column({ type: 'varchar', name: 'image_url' })
+  @Column({ type: 'varchar', name: 'image_url', nullable: true })
   public imageURL!: string
+
+  @Field((_type) => Date)
+  @Column({ name: 'last_seen_at' })
+  public lastSeenAt!: Date
 
   @Field()
   @CreateDateColumn({ name: 'created_at' })
