@@ -3,6 +3,7 @@ import { EntityManager, getManager } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 import { TigerRepository } from '../db/repositories'
 import { Tiger } from '../db/models'
+import { ListArgs } from '../graphql/inputs'
 
 @Service()
 export class TigerService {
@@ -14,9 +15,11 @@ export class TigerService {
     this.manager = getManager()
   }
 
-  async getAll() {
+  async getAll({ skip, take }: ListArgs) {
     const tigers = await this.tigerRepository.find({
       relations: ['sightings'],
+      skip,
+      take,
     })
 
     return tigers
