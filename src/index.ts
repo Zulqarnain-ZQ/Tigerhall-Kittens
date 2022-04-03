@@ -5,6 +5,8 @@ import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
 import cors from 'cors'
 import { graphQLSchema } from './graphql/schema'
+import depthLimit from 'graphql-depth-limit'
+import compression from 'compression'
 
 // register 3rd party IOC container
 TypeORM.useContainer(Container)
@@ -30,6 +32,7 @@ const bootstrap = async () => {
       origin: [/localhost*/],
     }
     app.use(cors(corsConfig))
+    app.use(compression())
 
     console.log('After setting cors')
 
@@ -41,6 +44,7 @@ const bootstrap = async () => {
       context: ({ req, res }) => ({ req, res }),
       debug: true,
       playground: true,
+      validationRules: [depthLimit(2)],
     })
 
     server.applyMiddleware({ app, cors: corsConfig })

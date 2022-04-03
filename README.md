@@ -18,3 +18,7 @@ Install following dependencies before being able to get development server start
 #### Running the app
 
 After running all above mentioned stpes, type `yarn dev` to run the server
+
+#### Accessing the app on dev
+
+You can use http://localhost:3000/graphql to play with the API
