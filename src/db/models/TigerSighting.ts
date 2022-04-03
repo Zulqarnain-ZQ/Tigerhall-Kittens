@@ -25,7 +25,7 @@ export class TigerSighting {
   @PrimaryGeneratedColumn()
   public readonly id!: number
 
-  @Field((type) => Point)
+  @Field((_type) => Point)
   @Column({ type: 'json' })
   public location!: Point
 
@@ -36,6 +36,9 @@ export class TigerSighting {
   @Field((_type) => Date)
   @Column({ name: 'last_seen_at' })
   public lastSeenAt!: Date
+
+  @Column({ name: 'tiger_id' })
+  public tigerId: number
 
   @Field()
   @CreateDateColumn({ name: 'created_at' })

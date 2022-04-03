@@ -2,6 +2,7 @@ import { Service } from 'typedi'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 import { TigerSightingRepository } from '../db/repositories'
 import { Tiger, TigerSighting } from '../db/models'
+import { SightingsArgs } from '../graphql/inputs/SightingsArgs'
 
 @Service()
 export class TigerSightingService {
@@ -10,21 +11,16 @@ export class TigerSightingService {
     private readonly sightingRepository: TigerSightingRepository
   ) {}
 
-  async getAll() {
+  async getAll({ skip, take, tigerId }: SightingsArgs) {
     const sightings = await this.sightingRepository.find({
       relations: ['tiger'],
+      skip,
+      take,
+      where: { tigerId },
+      order: { lastSeenAt: 'DESC' },
     })
 
     return sightings
-  }
-
-  async getOne(id: number) {
-    const sighting = await this.sightingRepository.find({
-      relations: ['tiger'],
-      where: { id },
-    })
-
-    return sighting
   }
 
   buildSightingFromTigetInput(inputData: Partial<TigerSighting>, tiger: Tiger) {
