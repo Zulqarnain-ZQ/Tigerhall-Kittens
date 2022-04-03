@@ -20,7 +20,7 @@ export class Tiger {
   @Column({ type: 'varchar' })
   public name!: string
 
-  @Field()
+  @Field((_type) => String)
   @Column({ type: 'date', name: 'date_of_birth' })
   public dateOfBirth!: Date
 
@@ -35,7 +35,8 @@ export class Tiger {
   @Field((_type) => [TigerSighting])
   @OneToMany(
     (_type) => TigerSighting,
-    (product: TigerSighting) => product.tiger
+    (product: TigerSighting) => product.tiger,
+    { cascade: true }
   )
   public sightings?: TigerSighting[]
 }

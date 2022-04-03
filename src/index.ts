@@ -44,7 +44,7 @@ const bootstrap = async () => {
       context: ({ req, res }) => ({ req, res }),
       debug: true,
       playground: true,
-      validationRules: [depthLimit(2)],
+      validationRules: [depthLimit(3)],
     })
 
     server.applyMiddleware({ app, cors: corsConfig })

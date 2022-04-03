@@ -1,4 +1,4 @@
-import { Field, ObjectType } from 'type-graphql'
+import { Field, Float, ObjectType } from 'type-graphql'
 import {
   Column,
   CreateDateColumn,
@@ -7,11 +7,16 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm'
-import { Geometry } from 'geojson'
-//import { PointObject } from 'graphql-geojson'
-
 import { Tiger } from './Tiger'
-//import { PointType } from '../../graphql/inputs/PointType'
+
+@ObjectType()
+class Point {
+  @Field((_type) => Float)
+  public lat!: number
+
+  @Field((_type) => Float)
+  public lon!: number
+}
 
 @ObjectType()
 @Entity('tiger_sightings')
@@ -20,10 +25,9 @@ export class TigerSighting {
   @PrimaryGeneratedColumn()
   public readonly id!: number
 
-  /** TODO: Fix type issue for location */
-  // @Field((_type) => PointType)
-  @Column({ type: 'point' })
-  public location!: Geometry
+  @Field((type) => Point)
+  @Column({ type: 'json' })
+  public location!: Point
 
   @Field()
   @Column({ type: 'varchar', name: 'image_url', nullable: true })

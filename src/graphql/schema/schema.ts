@@ -1,10 +1,10 @@
 import { buildSchema } from 'type-graphql'
-import { CreateTiger } from '../../services/CreateTiger'
-import { GetTigers } from '../../services/GetTigers'
+import { CreateTigerResolver } from '../resolvers/CreateTigerResolver'
+import { GetTigersResolver } from '../resolvers/GetTigersResolver'
 
 export default (Container: any) => {
   return buildSchema({
     container: Container,
-    resolvers: [CreateTiger, GetTigers],
+    resolvers: [CreateTigerResolver, GetTigersResolver],
   })
 }
