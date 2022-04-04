@@ -23,7 +23,7 @@ export class TigerSightingService {
     return sightings
   }
 
-  buildSightingFromTigetInput(inputData: Partial<TigerSighting>, tiger: Tiger) {
+  buildSighting(inputData: Partial<TigerSighting>, tiger: Tiger) {
     const sighting = new TigerSighting()
 
     sighting.createdAt = new Date()

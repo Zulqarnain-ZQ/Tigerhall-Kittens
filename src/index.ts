@@ -7,23 +7,18 @@ import cors from 'cors'
 import { graphQLSchema } from './graphql/schema'
 import depthLimit from 'graphql-depth-limit'
 import compression from 'compression'
+import { graphqlUploadExpress } from 'graphql-upload'
 
 // register 3rd party IOC container
 TypeORM.useContainer(Container)
 
 const bootstrap = async () => {
   try {
-    console.log('Before creating connection')
-
     // create TypeORM connection
     await TypeORM.createConnection()
 
-    console.log('After creating connection')
-
     // build TypeGraphQL executable schema
     const schema = await graphQLSchema(Container)
-
-    console.log('After creating schema')
 
     const app = express()
     const corsConfig = {
@@ -34,7 +29,8 @@ const bootstrap = async () => {
     app.use(cors(corsConfig))
     app.use(compression())
 
-    console.log('After setting cors')
+    /** Restricting file upload to be 10 MB max */
+    app.use(graphqlUploadExpress({ maxFileSize: 1000000, maxFiles: 10 }))
 
     const port = 3000
 
@@ -45,11 +41,10 @@ const bootstrap = async () => {
       debug: true,
       playground: true,
       validationRules: [depthLimit(3)],
+      uploads: false,
     })
 
     server.applyMiddleware({ app, cors: corsConfig })
-
-    console.log('After setting graphql')
 
     app.listen({ port }, () => {
       console.log(

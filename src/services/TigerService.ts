@@ -26,7 +26,7 @@ export class TigerService {
   }
 
   async getOne(id: number) {
-    const tiger = await this.tigerRepository.find({
+    const tiger = await this.tigerRepository.findOne({
       relations: ['sightings'],
       where: { id },
     })

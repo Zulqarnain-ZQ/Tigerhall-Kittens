@@ -14,8 +14,8 @@ export class GetSightingsResolver {
   public async getTigerSightings(
     @Args() args: SightingsArgs
   ): Promise<TigerSighting[]> {
-    const tigers = await this.sightingService.getAll(args)
+    const sightings = await this.sightingService.getAll(args)
 
-    return tigers
+    return sightings
   }
 }

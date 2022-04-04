@@ -35,10 +35,7 @@ export class CreateTigerResolver {
     console.log(inputData)
 
     const tiger = this.tigerService.buildTiger(inputData)
-    const sighting = this.sightingService.buildSightingFromTigetInput(
-      inputData,
-      tiger
-    )
+    const sighting = this.sightingService.buildSighting(inputData, tiger)
 
     tiger.sightings = [sighting]
 

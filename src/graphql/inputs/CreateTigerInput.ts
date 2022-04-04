@@ -1,7 +1,7 @@
 import { Field, InputType } from 'type-graphql'
 import { Tiger } from '../../db/models'
 import { PointType } from './PointType'
-import { MaxLength, Length } from 'class-validator'
+import { MaxLength } from 'class-validator'
 
 @InputType()
 export class CreateTigerInput implements Partial<Tiger> {
