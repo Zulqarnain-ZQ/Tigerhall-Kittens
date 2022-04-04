@@ -2,6 +2,7 @@ import { Service } from 'typedi'
 import * as fs from 'fs'
 import { Upload } from '../types/Upload'
 import { v4 as uuid } from 'uuid'
+import sharp from 'sharp'
 
 const imagesUploadDir = './images'
 
@@ -21,7 +22,7 @@ export class FileService {
       stream
         .pipe(fs.createWriteStream(path))
         .on('error', (error) => reject(error))
-        .on('finish', () => resolve(path))
+        .on('finish', () => resolve(uniqueFileName))
     )
   }
 
@@ -37,5 +38,24 @@ export class FileService {
     const unique = uuid()
 
     return `${unique}-${trimmedFilename}`
+  }
+
+  async resizeImage(imageName: string) {
+    try {
+      const path = `${imagesUploadDir}/${imageName}`
+      const resizedImage = `resized-${imageName}`
+      const resizedImagePath = `${imagesUploadDir}/${resizedImage}`
+
+      await sharp(path)
+        .resize({
+          width: 250,
+          height: 200,
+        })
+        .toFile(resizedImagePath)
+
+      return resizedImagePath
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

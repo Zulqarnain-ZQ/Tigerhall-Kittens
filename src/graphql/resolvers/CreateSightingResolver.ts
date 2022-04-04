@@ -31,7 +31,9 @@ export class CreateSightingResolver {
     if (!this.fileService.isValidImage(upload))
       throw new Error('Unknown image format')
 
-    const path = await this.fileService.storeImage(upload)
+    const path = await this.fileService.resizeImage(
+      await this.fileService.storeImage(upload)
+    )
 
     const sighting = this.sightingService.buildSighting(
       { ...inputData, imageURL: path },
