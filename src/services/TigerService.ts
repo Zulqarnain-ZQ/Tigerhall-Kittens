@@ -48,7 +48,7 @@ export class TigerService {
   async createTiger(tiger: Tiger) {
     this.validateTigerCreationInput(tiger)
 
-    this.manager.save(tiger)
+    return await this.manager.save(tiger)
   }
 
   private validateTigerCreationInput(tiger: Tiger) {

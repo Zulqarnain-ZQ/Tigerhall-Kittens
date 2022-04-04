@@ -39,8 +39,6 @@ export class CreateTigerResolver {
 
     tiger.sightings = [sighting]
 
-    await this.tigerService.createTiger(tiger)
-
-    return tiger
+    return await this.tigerService.createTiger(tiger)
   }
 }

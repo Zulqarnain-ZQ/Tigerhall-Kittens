@@ -28,6 +28,9 @@ export class CreateSightingResolver {
     /** Converting to user defined type because destructuring does not give correct type */
     const upload: Upload = await inputData.file
 
+    if (!this.fileService.isValidImage(upload))
+      throw new Error('Unknown image format')
+
     const path = await this.fileService.storeImage(upload)
 
     const sighting = this.sightingService.buildSighting(
@@ -35,8 +38,6 @@ export class CreateSightingResolver {
       tiger
     )
 
-    await this.tigerService.createTiger(tiger)
-
-    return sighting
+    return await this.sightingService.createSighting(sighting)
   }
 }

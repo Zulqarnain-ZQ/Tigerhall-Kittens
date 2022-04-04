@@ -29,7 +29,7 @@ export class TigerSighting {
   @Column({ type: 'json' })
   public location!: Point
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ type: 'varchar', name: 'image_url', nullable: true })
   public imageURL!: string
 
