@@ -1,7 +1,6 @@
 import { createTestClient } from 'apollo-server-testing'
 import { ApolloServer } from 'apollo-server-express'
 import { creteApolloServer } from '../../test-utils/createApolloServer'
-import { buildTiger } from '../../test-utils/buildTiger'
 import {
   closeConnection,
   createConnection,
@@ -9,10 +8,8 @@ import {
 import { createTestTigers } from '../../test-utils/createTestTigers'
 import { removeTestTigers } from '../../test-utils/removeTestTigers'
 
-const tigers = [buildTiger()]
-
 describe('Get Tiger resolver', () => {
-  let server: ApolloServer, url
+  let server: ApolloServer
 
   // before the tests we will spin up a new Apollo Server
   beforeAll(async () => {
@@ -113,8 +110,6 @@ describe('Get Tiger resolver', () => {
 
     // act
     const result = await query({ query: get_tigers, variables: [] })
-
-    console.log(result)
 
     expect(result.errors).toBeTruthy()
     expect(result.errors[0].message.toLowerCase()).toContain(
