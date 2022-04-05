@@ -24,4 +24,7 @@ After running all above mentioned stpes, type `yarn dev` to run the server
 
 You can use http://localhost:3000/graphql to play with the API
 
-#### Images directory
+#### Running the tests
+
+1. Create test database `tigerhall_kittens_test`
+2. Run `yarn test` in terminal to run all the tests

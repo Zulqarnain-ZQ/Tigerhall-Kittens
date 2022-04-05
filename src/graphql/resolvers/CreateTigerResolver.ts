@@ -32,8 +32,6 @@ export class CreateTigerResolver {
   public async createTiger(
     @Arg('data') inputData: CreateTigerInput
   ): Promise<Tiger> {
-    console.log(inputData)
-
     const tiger = this.tigerService.buildTiger(inputData)
     const sighting = this.sightingService.buildSighting(inputData, tiger)
 

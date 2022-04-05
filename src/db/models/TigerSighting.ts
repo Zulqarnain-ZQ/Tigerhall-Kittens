@@ -31,7 +31,7 @@ export class TigerSighting {
 
   @Field({ nullable: true })
   @Column({ type: 'varchar', name: 'image_url', nullable: true })
-  public imageURL!: string
+  public imageURL!: string | null
 
   @Field((_type) => Date)
   @Column({ name: 'last_seen_at' })

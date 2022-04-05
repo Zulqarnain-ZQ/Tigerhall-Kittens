@@ -56,6 +56,7 @@ export class FileService {
       return resizedImagePath
     } catch (error) {
       console.log(error)
+      throw error 
     }
   }
 }

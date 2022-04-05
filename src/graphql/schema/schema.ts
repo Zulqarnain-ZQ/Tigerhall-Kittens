@@ -1,4 +1,5 @@
 import { buildSchema } from 'type-graphql'
+
 import { CreateTigerResolver } from '../resolvers/CreateTigerResolver'
 import { GetTigersResolver } from '../resolvers/GetTigersResolver'
 import { GetSightingsResolver } from '../resolvers/GetSightingsResolver'
