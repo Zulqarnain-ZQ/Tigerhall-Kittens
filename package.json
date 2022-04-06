@@ -4,7 +4,7 @@
   "description": "Probject about tigers and their sight seeing",
   "main": "index.ts",
   "scripts": {
-    "test": "env-cmd -f ./config/.env.test jest",
+    "test": "env-cmd -f ./config/.env.test jest --runInBand",
     "clean": "rimraf dist/*",
     "tsc": "tsc",
     "dev": "env-cmd -f ./config/.env.dev nodemon src/index.ts -e ts",

@@ -37,9 +37,9 @@ describe('Get Sighting resolver', () => {
     const { query } = createTestClient(server)
 
     // graphl query
-    const get_sightings = `
+    const GET_SIGHTINGS = `
   {
-    getTigerSightings(tigerId: 1) {
+    getTigerSightings(take:1, skip: 0, tigerId: 1) {
         id
         imageURL
         location { lat }
@@ -53,7 +53,7 @@ describe('Get Sighting resolver', () => {
   `
 
     // act
-    const result = await query({ query: get_sightings })
+    const result = await query({ query: GET_SIGHTINGS })
 
     expect(result.data['getTigerSightings']).toBeTruthy()
     expect(result.data['getTigerSightings']).toHaveLength(1)
@@ -64,7 +64,7 @@ describe('Get Sighting resolver', () => {
     const { query } = createTestClient(server)
 
     // invalid graphql query picture does not exist on tigers
-    const get_sightings = `
+    const GET_SIGHTINGS = `
   {
     getTigerSightings(tigerId: 1) {
         id
@@ -81,7 +81,7 @@ describe('Get Sighting resolver', () => {
   `
 
     // act
-    const result = await query({ query: get_sightings })
+    const result = await query({ query: GET_SIGHTINGS })
 
     expect(result.errors).toBeTruthy()
     expect(result.errors[0].message.toLowerCase()).toContain(
@@ -93,7 +93,7 @@ describe('Get Sighting resolver', () => {
     const { query } = createTestClient(server)
 
     // invalid graphql query picture does not exist on tigers
-    const get_sightings = `
+    const GET_SIGHTINGS = `
   {
     getTigerSightings(skip:0 , take: 0, tigerId: 1) {
         id
@@ -109,7 +109,7 @@ describe('Get Sighting resolver', () => {
   `
 
     // act
-    const result = await query({ query: get_sightings, variables: [] })
+    const result = await query({ query: GET_SIGHTINGS })
 
     expect(result.errors).toBeTruthy()
     expect(result.errors[0].message.toLowerCase()).toContain(
@@ -121,7 +121,7 @@ describe('Get Sighting resolver', () => {
     const { query } = createTestClient(server)
 
     // invalid graphql query picture does not exist on tigers
-    const get_sightings = `
+    const GET_SIGHTINGS = `
   {
     getTigerSightings(skip:0 , take: 10) {
         id
@@ -137,7 +137,7 @@ describe('Get Sighting resolver', () => {
   `
 
     // act
-    const result = await query({ query: get_sightings, variables: [] })
+    const result = await query({ query: GET_SIGHTINGS })
 
     expect(result.errors).toBeTruthy()
     expect(result.errors[0].message.toLowerCase()).toContain(

@@ -37,9 +37,9 @@ describe('Get Tiger resolver', () => {
     const { query } = createTestClient(server)
 
     // graphl query
-    const get_tigers = `
+    const GET_TIGERS = `
   {
-    getTigers {
+    getTigers(skip:0 , take: 2) {
       name
       id
       dateOfBirth
@@ -53,7 +53,7 @@ describe('Get Tiger resolver', () => {
   `
 
     // act
-    const result = await query({ query: get_tigers })
+    const result = await query({ query: GET_TIGERS })
 
     expect(result.data['getTigers']).toBeTruthy()
     expect(result.data['getTigers']).toHaveLength(2)
@@ -64,7 +64,7 @@ describe('Get Tiger resolver', () => {
     const { query } = createTestClient(server)
 
     // invalid graphql query picture does not exist on tigers
-    const get_tigers = `
+    const GET_TIGERS = `
   {
     getTigers {
       name
@@ -81,7 +81,7 @@ describe('Get Tiger resolver', () => {
   `
 
     // act
-    const result = await query({ query: get_tigers })
+    const result = await query({ query: GET_TIGERS })
 
     expect(result.errors).toBeTruthy()
     expect(result.errors[0].message).toContain(
@@ -93,7 +93,7 @@ describe('Get Tiger resolver', () => {
     const { query } = createTestClient(server)
 
     // invalid graphql query picture does not exist on tigers
-    const get_tigers = `
+    const GET_TIGERS = `
   {
     getTigers(skip:0 , take: 0) {
       name
@@ -109,7 +109,7 @@ describe('Get Tiger resolver', () => {
   `
 
     // act
-    const result = await query({ query: get_tigers, variables: [] })
+    const result = await query({ query: GET_TIGERS })
 
     expect(result.errors).toBeTruthy()
     expect(result.errors[0].message.toLowerCase()).toContain(
