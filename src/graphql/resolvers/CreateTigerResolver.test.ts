@@ -69,8 +69,6 @@ describe('Create tiger resolver', () => {
 
     const tiger: Tiger = result.data['createTiger']
 
-    console.log(result.data['createTiger'])
-
     expect(result.data['createTiger']).toBeTruthy()
     expect(tiger.name).toEqual('New tiger')
     expect(result.errors).toBeFalsy()

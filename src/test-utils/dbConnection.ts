@@ -8,8 +8,6 @@ TypeORM.useContainer(Container)
 export async function createConnection() {
   const name = process.env.NODE_ENV || 'default'
 
-  console.log('name', name)
-
   await TypeORM.createConnection()
 }
 
